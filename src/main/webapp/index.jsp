@@ -14,6 +14,7 @@
 		<div id="section_wrap">
 			<div class="word">
 				<h3>HOME</h3>
+				<img src="/upload/게시판.png">
 			</div>
 		</div>
 	</section>

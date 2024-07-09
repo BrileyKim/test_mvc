@@ -1,7 +1,7 @@
 package com.gn.user.service;
 
-import static com.gn.common.JDBCTemplate.getConnection;
 import static com.gn.common.JDBCTemplate.close;
+import static com.gn.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
 
@@ -15,5 +15,12 @@ public class UserService {
 		int result = new UserDao().createUser(u,conn);
 		close(conn);
 		return result;
+	}
+	
+	public User loginUser(String id,String pw) {
+		Connection conn = getConnection();
+		User u = new UserDao().loginUser(id,pw,conn);
+		close(conn);
+		return u;
 	}
 }

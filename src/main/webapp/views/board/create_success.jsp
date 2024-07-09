@@ -4,8 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입 실패</title>
-<link href="../../resources/css/user/create_result.css" rel="stylesheet" type="text/css">
+<title>게시글 등록 성공</title>
+<link href='../../resources/css/board/create_result.css' rel="stylesheet" type="text/css">
 </head>
 <body>
 	<%@ include file="../include/header.jsp" %>
@@ -13,11 +13,7 @@
 	<section>
 		<div id="section_wrap">
 			<div class="word">
-				<h3>회원가입에 실패했습니다.</h3>
-			</div>
-			<div class="others">
-				<a href="/user/create">회원가입</a>
-				<a href="/user/login">로그인</a>
+				<h3>게시글 등록 성공!!</h3>
 			</div>
 		</div>
 	</section>
