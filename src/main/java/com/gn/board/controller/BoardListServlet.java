@@ -32,8 +32,6 @@ public class BoardListServlet extends HttpServlet {
 		b.setTotalData(new BoardService().selectBoardCount(b));
 		List<Board> list = new BoardService().selectBoardList(b);
 		
-		System.out.println("=== 게시판 ===");
-		System.out.println(b);
 		
 		// 페이징 처리
 //		String pageBar = "";
