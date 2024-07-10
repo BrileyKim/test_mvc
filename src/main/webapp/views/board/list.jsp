@@ -55,16 +55,19 @@
 						</tr>
 					</thead>
 					<tbody>
-						<%@page import="com.gn.board.vo.Board, java.util.*" %>
+						<%@page import="com.gn.board.vo.Board, java.util.*,java.time.LocalDateTime
+								,java.time.format.DateTimeFormatter" %>
 						<%
 							List<Board> list = (List<Board>)request.getAttribute("resultList");
-							String pageBar = (String)request.getAttribute("pageBar");
+							// String pageBar = (String)request.getAttribute("pageBar");
+							Board paging = (Board)request.getAttribute("paging");
+							DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 							for(int i = 0 ; i < list.size(); i++){ %>
 								<tr>
-									<td><%=list.get(i).getBoard_no()%></td>
+									<td><%=((paging.getNowPage()-1)*10)+i+1%></td>
 									<td><%=list.get(i).getBoard_title()%></td>
 									<td><%=list.get(i).getBoard_writer()%></td>
-									<td><%=list.get(i).getReg_date()%></td>
+									<td><%=dtf.format(list.get(i).getReg_date())%></td>
 								</tr>
 						<%}%>
 					</tbody>
@@ -72,6 +75,21 @@
 			</div>
 		</div>
 	</section>	
-	<%=pageBar %>
+	<%-- <%=pageBar %> --%>
+	<%if(paging != null){ %>
+		<div class='center'>
+			<div class='pagination'>
+				<% if(paging.isPrev()){ %>
+					<a href='/board/list?nowPage=<%=(paging.getPageBarStart()-1)%>'>&laquo;</a>
+				<% } %>
+				<% for(int i = paging.getPageBarStart() ; i<= paging.getPageBarEnd() ; i++){ %>
+					<a href='/board/list?nowPage=<%=i%>' <%=paging.getNowPage() == i ? "class='active'" : "" %>><%=i%></a>
+				<% }%>
+				<% if(paging.isNext()) {%>
+					<a href='/board/list?nowPage=<%=(paging.getPageBarEnd()+1)%>'>&raquo;</a>
+				<% }%>
+			</div>
+		</div>
+	<%} %>
 </body>
 </html>

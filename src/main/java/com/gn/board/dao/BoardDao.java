@@ -5,6 +5,8 @@ import static com.gn.common.JDBCTemplate.close;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +49,7 @@ public class BoardDao {
 				pstmt.setString(1, b.getBoard_title());
 			}
 			rs = pstmt.executeQuery();
+			
 			while(rs.next()) {
 				Board resultVo = new Board(rs.getInt("board_no"),
 						rs.getString("board_title"),
@@ -58,6 +61,7 @@ public class BoardDao {
 						rs.getString("new_thumbnail"));
 				list.add(resultVo);
 			}
+
 			
 		}catch(Exception e) {
 			e.printStackTrace();

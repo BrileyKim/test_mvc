@@ -23,9 +23,12 @@ public class BoardListServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String title = request.getParameter("board_title");
-		
+		String nowPage = request.getParameter("nowPage");
 		Board b = new Board();
 		b.setBoard_title(title);
+		if(nowPage != null ) {
+			b.setNowPage(Integer.parseInt(nowPage));
+		}
 		b.setTotalData(new BoardService().selectBoardCount(b));
 		List<Board> list = new BoardService().selectBoardList(b);
 		
@@ -33,21 +36,22 @@ public class BoardListServlet extends HttpServlet {
 		System.out.println(b);
 		
 		// 페이징 처리
-		String pageBar = "";
-		pageBar += "<div class='center'>";
-		pageBar += "<div class='pagination'>";
-		if(b.isPrev()) {
-			pageBar += "<a href='/board/list?page_no="+(b.getPageBarStart()-1)+"'>&laquo;</a>";
-		}
-		for(int i = b.getPageBarStart() ; i <= b.getPageBarEnd() ; i++) {
-			pageBar += "<a href='/board/list?page_no="+i+"'"+(b.getNowPage()==i ? "class='active'":"")+">"+i+"</a>";
-		}
-		if(b.isNext()) {
-			pageBar += "<a href='/board/list?page_no="+(b.getPageBarEnd()+1)+"'>&raquo;</a>";
-		}
-		pageBar += "</div></div>";
+//		String pageBar = "";
+//		pageBar += "<div class='center'>";
+//		pageBar += "<div class='pagination'>";
+//		if(b.isPrev()) {
+//			pageBar += "<a href='/board/list?nowPage="+(b.getPageBarStart()-1)+"'>&laquo;</a>";
+//		}
+//		for(int i = b.getPageBarStart() ; i <= b.getPageBarEnd() ; i++) {
+//			pageBar += "<a href='/board/list?nowPage="+i+"'"+(b.getNowPage()==i ? "class='active'":"")+">"+i+"</a>";
+//		}
+//		if(b.isNext()) {
+//			pageBar += "<a href='/board/list?nowPage="+(b.getPageBarEnd()+1)+"'>&raquo;</a>";
+//		}
+//		pageBar += "</div></div>";
 		  	
-		request.setAttribute("pageBar", pageBar);
+		//request.setAttribute("pageBar", pageBar);
+		request.setAttribute("paging",b);
 		request.setAttribute("resultList", list);
 		RequestDispatcher rd=request.getRequestDispatcher("/views/board/list.jsp");
 		rd.forward(request, response);

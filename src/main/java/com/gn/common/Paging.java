@@ -12,7 +12,7 @@ public class Paging {
 	
 	//현재 페이지
 	private int nowPage = 1;
-	private int numPerPage = 8;
+	private int numPerPage = 10;
 	private int limit_pageNo;
 	
 	//이전, 다음 여부
